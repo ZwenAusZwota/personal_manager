@@ -1,0 +1,22 @@
+{
+	"name"        : "svenschuberth/personal_manager",
+	"description" : "A manager for knowledge of relations between people",
+	"keywords"    : ["wordpress relations people"],
+	"homepage"    : "https://perm.zwen-aus-zwota.de",
+	"license"     : "GPL-2.0+",
+	"type"        : "wordpress-plugin",
+	"authors"     : [
+		{
+			"name"     : "Sven Schuberth,
+			"email"    : "sven.schuberth@gmx.de",
+			"homepage" : "http://zwen-aus-zwota.de"
+		}
+	],
+	"require"     : {
+		"composer/installers" : "^1.0",
+		"php"                 : ">=5.3.0"
+	},
+	"support"     : {
+		"issues": "https://github.com/ZwenAusZwota/personal_manager"
+	}
+}
