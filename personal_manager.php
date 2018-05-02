@@ -216,6 +216,9 @@ final class PERM {
 
 		// Register activation hook.
 		register_activation_hook( __FILE__, array( $this, 'activation' ) );
+		
+		//short-link
+		add_shortcode( 'perm-form', array( $this, 'render_perm_form' ) );
 	}
 
 	private function setup_menues(){
@@ -252,6 +255,46 @@ final class PERM {
 	<?php
 	}
 	
+	public function render_perm_form($attributes, $content = null){
+		// Parse shortcode attributes
+		$default_attributes = array( 'show_title' => false );
+		$attributes = shortcode_atts( $default_attributes, $attributes );
+		$show_title = $attributes['show_title'];
+ 
+		if ( !is_user_logged_in() ) {
+		    return __( 'You have to be logged in to use this function.', 'perm' );
+		}
+     
+		// Render the login form using an external template
+		return $this->get_template_html( 'login_form', $attributes );
+	}
+	
+	/**
+	* Renders the contents of the given template to a string and returns it.
+	*
+	* @param string $template_name The name of the template to render (without .php)
+	* @param array  $attributes    The PHP variables for the template
+	*
+	* @return string               The contents of the template.
+	*/
+	private function get_template_html( $template_name, $attributes = null ) {
+	   if ( ! $attributes ) {
+		   $attributes = array();
+	   }
+	
+	   ob_start();
+	
+	   do_action( 'personalize_login_before_' . $template_name );
+	
+	   require( 'templates/' . $template_name . '.php');
+	
+	   do_action( 'personalize_login_after_' . $template_name );
+	
+	   $html = ob_get_contents();
+	   ob_end_clean();
+	
+	   return $html;
+   }
 	
 	/**
 	 * Loads the translation files.
